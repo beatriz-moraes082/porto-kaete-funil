@@ -230,7 +230,16 @@
   ol.hyp li:nth-child(4){border-left-color:var(--up)} ol.hyp li:nth-child(4)::before{color:var(--up)}
   .perfilcard{border-top:3px solid var(--accent)}
 
+  /* lightbox de criativos */
+  #scriativos img{cursor:zoom-in; transition:transform .15s ease}
+  #scriativos img:hover{transform:scale(1.07)}
+  .lightbox{position:fixed; inset:0; z-index:200; background:rgba(0,0,0,.82); display:none; align-items:center; justify-content:center; padding:24px; cursor:zoom-out; -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px)}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:min(92vw,390px); max-height:86vh; border-radius:14px; box-shadow:0 24px 70px rgba(0,0,0,.55)}
+  .lightbox .x{position:absolute; top:18px; right:22px; color:#fff; font-size:30px; font-weight:300; opacity:.85; line-height:1}
+
   @media print{
+    .lightbox{display:none!important}
     .tile,.card,.callout,ol.hyp li,tr,.goal,.jornada{break-inside:avoid}
     .kicker,.tile.ink,.tile.accent,.pri,.jornada svg,.grid4 .card,.opgrid .card,ol.hyp li{-webkit-print-color-adjust:exact; print-color-adjust:exact}
   }
@@ -537,5 +546,19 @@
   <div><b>Porto Kaeté</b> · Diagnóstico de Funil · Agosto 2026, dados GA4 verificados em 02/09/2026</div>
   <div>Trilha Performance Digital</div>
 </div></footer>
+<script>
+(function(){
+  var lb=document.createElement('div'); lb.className='lightbox';
+  lb.innerHTML='<span class="x">&times;</span>';
+  var im=document.createElement('img'); im.alt='Preview do criativo'; lb.appendChild(im);
+  document.body.appendChild(lb);
+  document.querySelectorAll('#scriativos img').forEach(function(t){
+    t.style.cursor='zoom-in';
+    t.addEventListener('click',function(){ im.src=t.src; lb.classList.add('open'); });
+  });
+  lb.addEventListener('click',function(){ lb.classList.remove('open'); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') lb.classList.remove('open'); });
+})();
+</script>
 </body>
 </html>
