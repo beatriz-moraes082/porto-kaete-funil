@@ -189,6 +189,8 @@
   .cv-lead{font-size:18px; color:var(--muted); line-height:1.55; max-width:62ch; margin:0}
   .cv-facts{display:flex; flex-wrap:wrap; gap:8px 26px; margin-top:28px; font-size:13px; color:var(--muted)}
   .cv-facts b{color:var(--text); font-weight:700}
+  .mk{background:linear-gradient(transparent 52%, rgba(238,77,32,.32) 52%); color:var(--text); font-weight:800; padding:0 3px; border-radius:2px}
+  :root[data-theme="dark"] .mk,:root:not([data-theme="light"]) .mk{background:linear-gradient(transparent 52%, rgba(244,96,47,.42) 52%)}
 
   /* funil de marketing */
   .jornada{display:grid; grid-template-columns:1.4fr .6fr; gap:28px; align-items:center; background:var(--surface); border:1px solid var(--border); border-radius:var(--r); box-shadow:var(--sh); padding:26px 30px}
@@ -237,7 +239,7 @@
 
 <header class="cover"><div class="wrap">
   <p class="cv-eyebrow">Relatório de Performance · Porto Kaeté · Agosto 2026</p>
-  <p class="cv-lead">Diagnóstico do funil de compra do site: de onde a receita realmente vem, onde ela vaza e o que vamos atacar. Agosto cresceu 26% em receita, mas o resultado e o orçamento não estão no mesmo lugar.</p>
+  <p class="cv-lead">Diagnóstico do funil de compra do site: de onde a receita realmente vem, onde ela vaza e o que vamos atacar. <mark class="mk">Agosto cresceu 26% em receita</mark>, mas o resultado e o orçamento não estão no mesmo lugar.</p>
   <div class="cv-facts">
     <span><b>Fonte:</b> GA4 · propriedade 539483498</span>
     <span><b>Base:</b> site portokaeté.com.br</span>
