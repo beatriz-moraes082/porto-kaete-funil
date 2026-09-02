@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Porto Kaeté · Diagnóstico de Funil</title>
+<meta name="description" content="Relatório de performance de agosto 2026 do Porto Kaeté: funil de compra, canais de receita, gargalos e plano de ação." />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,900&family=Public+Sans:wght@400;500;600;700&display=swap');
+
+  :root{
+    color-scheme: light;
+    --paper:#f4f1ea; --card:#fffefb; --card-2:#faf7f0;
+    --ink:#211f1a; --ink-2:#5b594f; --ink-3:#918e82;
+    --line:#e5e0d4; --line-2:#efe6e0;
+    --accent:#df4f27; --accent-soft:#f7ded4; --on-accent:#fff;
+    --sea:#1c6b5f; --gold:#bd8410;
+    --good:#1b7a4d; --warn:#b4560a; --bad:#c0392b;
+    --band:#2b2f2a; --band-ink:#f4f1ea; --band-ink-2:#b9b8ab; --band-line:#43473f;
+    --shadow:0 1px 2px rgba(30,25,15,.05),0 8px 26px rgba(30,25,15,.06);
+  }
+  :root:not([data-theme="light"]){}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --paper:#1a1c19; --card:#232622; --card-2:#1f221e;
+      --ink:#f0ede4; --ink-2:#b7b5a9; --ink-3:#807e73;
+      --line:#33362f; --line-2:#2b2e28;
+      --accent:#f26a41; --on-accent:#1a1c19;
+      --sea:#4bbfad; --gold:#d9a53a;
+      --good:#43b47e; --warn:#d68a3a; --bad:#e2685a;
+      --band:#141613; --band-ink:#f0ede4; --band-ink-2:#9c9a8f; --band-line:#2c2f29;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --paper:#1a1c19; --card:#232622; --card-2:#1f221e;
+    --ink:#f0ede4; --ink-2:#b7b5a9; --ink-3:#807e73;
+    --line:#33362f; --line-2:#2b2e28;
+    --accent:#f26a41; --on-accent:#1a1c19;
+    --sea:#4bbfad; --gold:#d9a53a;
+    --good:#43b47e; --warn:#d68a3a; --bad:#e2685a;
+    --band:#141613; --band-ink:#f0ede4; --band-ink-2:#9c9a8f; --band-line:#2c2f29;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Public Sans", ui-sans-serif, system-ui, sans-serif;
+    font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px}
+  h1,h2,h3{font-family:"Fraunces", Georgia, "Times New Roman", serif; font-weight:600; text-wrap:balance; margin:0}
+  .num{font-variant-numeric:tabular-nums lining-nums}
+  .eyebrow{font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent)}
+  .muted{color:var(--ink-2)}
+  .tiny{font-size:12.5px; color:var(--ink-3); line-height:1.5}
+
+  /* ---------- HERO ---------- */
+  .hero{background:var(--band); color:var(--band-ink); position:relative; overflow:hidden}
+  .hero-inner{max-width:1080px; margin:0 auto; padding:64px 28px 58px}
+  .hero .eyebrow{color:var(--accent)}
+  .hero h1{font-size:clamp(38px,6.5vw,68px); line-height:1.02; font-weight:600; letter-spacing:-.01em; margin:16px 0 0}
+  .hero h1 em{font-style:italic; color:var(--accent)}
+  .hero .sub{color:var(--band-ink-2); font-size:17px; max-width:60ch; margin:20px 0 0}
+  .hero .metaline{display:flex; flex-wrap:wrap; gap:10px 26px; margin-top:30px; padding-top:22px; border-top:1px solid var(--band-line); font-size:13.5px; color:var(--band-ink-2)}
+  .hero .metaline b{color:var(--band-ink); font-weight:600}
+  .glyph{position:absolute; right:-60px; top:-40px; width:340px; height:340px; opacity:.10; color:var(--accent)}
+  @media(max-width:640px){.glyph{display:none}}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:56px 0; border-bottom:1px solid var(--line)}
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:6px}
+  .sec-no{font-family:"Fraunces",serif; font-size:14px; color:var(--accent); font-weight:600; letter-spacing:.02em}
+  .sec-head h2{font-size:clamp(25px,3.4vw,34px); line-height:1.08; letter-spacing:-.01em}
+  .sec-lead{color:var(--ink-2); max-width:66ch; margin:14px 0 30px; font-size:16.5px}
+
+  /* ---------- KPI GRID ---------- */
+  .kpis{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+  @media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:440px){.kpis{grid-template-columns:1fr}}
+  .kpi{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px 20px 18px; box-shadow:var(--shadow)}
+  .kpi .k-label{font-size:12.5px; font-weight:600; color:var(--ink-2); text-transform:uppercase; letter-spacing:.06em}
+  .kpi .k-val{font-family:"Fraunces",serif; font-size:34px; font-weight:600; line-height:1; margin:12px 0 8px; letter-spacing:-.01em}
+  .kpi .k-foot{font-size:13px; color:var(--ink-3)}
+  .delta{display:inline-flex; align-items:center; gap:4px; font-weight:700; font-size:13px; padding:2px 8px; border-radius:999px}
+  .delta.up{color:var(--good); background:color-mix(in srgb, var(--good) 12%, transparent)}
+  .delta.down{color:var(--bad); background:color-mix(in srgb, var(--bad) 12%, transparent)}
+  .delta.flat{color:var(--ink-2); background:color-mix(in srgb, var(--ink-2) 12%, transparent)}
+
+  /* ---------- FUNNEL STATIONS ---------- */
+  .stations{display:grid; grid-template-columns:repeat(5,1fr); gap:0; margin-top:8px; align-items:stretch}
+  @media(max-width:820px){.stations{grid-template-columns:1fr; gap:0}}
+  .station{position:relative; background:var(--card); border:1px solid var(--line); padding:22px 18px; text-align:center; box-shadow:var(--shadow)}
+  .stations .station:first-child{border-radius:14px 0 0 14px}
+  .stations .station:last-child{border-radius:0 14px 14px 0; border-color:var(--accent); background:color-mix(in srgb,var(--accent) 7%, var(--card))}
+  .station .s-val{font-family:"Fraunces",serif; font-size:30px; font-weight:600; line-height:1}
+  .stations .station:last-child .s-val{color:var(--accent)}
+  .station .s-lab{font-size:13px; font-weight:600; margin-top:8px}
+  .station .s-sub{font-size:11.5px; color:var(--ink-3); margin-top:3px; min-height:2.6em}
+  .drop{position:absolute; right:-1px; top:50%; transform:translate(50%,-50%); z-index:2; background:var(--bad); color:#fff; font-size:11px; font-weight:700; padding:3px 7px; border-radius:999px; white-space:nowrap; box-shadow:0 2px 6px rgba(0,0,0,.18)}
+  @media(max-width:820px){
+    .stations .station{border-radius:0!important}
+    .stations .station:first-child{border-radius:14px 14px 0 0!important}
+    .stations .station:last-child{border-radius:0 0 14px 14px!important}
+    .drop{right:50%; top:auto; bottom:-1px; transform:translate(50%,50%)}
+    .station{padding-bottom:26px}
+  }
+
+  /* ---------- BAR FUNNEL (checkout zoom) & CHANNELS ---------- */
+  .barlist{display:flex; flex-direction:column; gap:12px; margin-top:6px}
+  .bar-row{display:grid; grid-template-columns:150px 1fr; gap:14px; align-items:center}
+  @media(max-width:560px){.bar-row{grid-template-columns:110px 1fr}}
+  .bar-name{font-size:13.5px; font-weight:600}
+  .bar-name small{display:block; color:var(--ink-3); font-weight:400; font-size:11.5px}
+  .bar-track{position:relative; background:var(--card-2); border:1px solid var(--line); border-radius:8px; height:38px; overflow:hidden}
+  .bar-fill{position:absolute; inset:0 auto 0 0; border-radius:7px 0 0 7px; display:flex; align-items:center; padding:0 12px; color:#fff; font-weight:700; font-size:13.5px; white-space:nowrap}
+  .bar-fill.sea{background:linear-gradient(90deg,var(--sea),color-mix(in srgb,var(--sea) 70%, #000))}
+  .bar-fill.acc{background:linear-gradient(90deg,var(--accent),#c8431f)}
+  .bar-fill.ink{background:linear-gradient(90deg,#6b6a5f,#4a493f)}
+  .bar-val-out{position:absolute; right:10px; top:50%; transform:translateY(-50%); font-size:13px; font-weight:700; color:var(--ink-2)}
+  .bar-fill .fv-sub{font-weight:500; opacity:.85; margin-left:8px; font-size:12px}
+
+  /* ---------- TWO-COL ---------- */
+  .cols{display:grid; grid-template-columns:1.15fr .85fr; gap:26px; align-items:start}
+  @media(max-width:820px){.cols{grid-template-columns:1fr; gap:20px}}
+  .panel{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:24px; box-shadow:var(--shadow)}
+  .panel h3{font-size:19px; margin-bottom:4px}
+  .panel .lead-sm{color:var(--ink-2); font-size:14.5px; margin:0 0 16px}
+
+  .callout{border-left:3px solid var(--accent); background:var(--card-2); border-radius:0 12px 12px 0; padding:16px 18px; font-size:14.5px}
+  .callout b{color:var(--ink)}
+
+  /* comparison table */
+  table{width:100%; border-collapse:collapse; font-size:14px}
+  caption{text-align:left}
+  th,td{padding:10px 12px; text-align:right; border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-3); font-weight:700; border-bottom:1.5px solid var(--line)}
+  tbody tr:last-child td{border-bottom:none}
+  td.pos{color:var(--good); font-weight:600}
+  td.neg{color:var(--bad); font-weight:600}
+  .row-hl td{background:color-mix(in srgb,var(--accent) 8%, transparent)}
+
+  /* behavior cards */
+  .beh{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+  @media(max-width:560px){.beh{grid-template-columns:1fr}}
+  .beh .card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; box-shadow:var(--shadow)}
+  .beh .b-k{font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--accent)}
+  .beh .b-v{font-family:"Fraunces",serif; font-size:20px; font-weight:600; margin:8px 0 4px; line-height:1.15}
+  .beh .b-d{font-size:13.5px; color:var(--ink-2)}
+
+  /* hypotheses */
+  .hyps{display:flex; flex-direction:column; gap:0; counter-reset:h}
+  .hyp{display:grid; grid-template-columns:44px 1fr; gap:18px; padding:20px 0; border-bottom:1px solid var(--line)}
+  .hyp:last-child{border-bottom:none}
+  .hyp .h-n{counter-increment:h; font-family:"Fraunces",serif; font-size:26px; color:var(--accent); font-weight:600; line-height:1}
+  .hyp .h-n::before{content:"H" counter(h)}
+  .hyp h3{font-size:17px; margin-bottom:5px}
+  .hyp p{margin:0; color:var(--ink-2); font-size:14.5px}
+  .tag{display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--sea); background:color-mix(in srgb,var(--sea) 12%, transparent); padding:2px 8px; border-radius:6px; margin-top:8px}
+
+  /* action plan */
+  .plan{overflow-x:auto; border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow)}
+  .plan table{font-size:14px}
+  .plan th,.plan td{padding:14px 16px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top}
+  .plan thead th{background:var(--band); color:var(--band-ink); border-bottom:none; letter-spacing:.05em}
+  .plan tbody tr:last-child td{border-bottom:none}
+  .pri{font-weight:700; font-size:12px; letter-spacing:.04em; text-transform:uppercase; white-space:nowrap; padding:3px 9px; border-radius:999px; display:inline-block}
+  .pri.u{color:#fff; background:var(--bad)}
+  .pri.a{color:#fff; background:var(--accent)}
+  .pri.m{color:var(--ink); background:color-mix(in srgb,var(--gold) 35%, var(--card))}
+  .plan td b{font-weight:600}
+  .plan .obj{color:var(--ink-2)}
+
+  /* goals */
+  .goals{display:flex; flex-direction:column; gap:0}
+  .goal{display:grid; grid-template-columns:1.4fr 1fr auto 1fr; gap:16px; align-items:center; padding:16px 0; border-bottom:1px solid var(--line)}
+  @media(max-width:640px){.goal{grid-template-columns:1fr auto 1fr; gap:8px 12px} .goal .g-name{grid-column:1/-1}}
+  .goal:last-child{border-bottom:none}
+  .g-name{font-weight:600; font-size:15px}
+  .g-now{color:var(--ink-3); font-size:15px}
+  .g-arrow{color:var(--accent); font-weight:800}
+  .g-target{font-family:"Fraunces",serif; font-weight:600; font-size:19px; color:var(--accent)}
+
+  footer{background:var(--band); color:var(--band-ink-2); padding:40px 0}
+  footer .wrap{display:flex; flex-wrap:wrap; justify-content:space-between; gap:16px; align-items:center}
+  footer b{color:var(--band-ink); font-weight:600; font-family:"Fraunces",serif}
+  .note{font-size:12.5px; color:var(--ink-3); margin-top:14px; line-height:1.5; max-width:78ch}
+  a{color:var(--accent)}
+  @media print{ body{background:#fff} .hero,.plan thead th,footer{-webkit-print-color-adjust:exact; print-color-adjust:exact} }
+</style>
+
+</head>
+<body>
+<header class="hero">
+  <svg class="glyph" viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" d="M50 2l9 30 30-9-21 22 21 22-30-9-9 30-9-30-30 9 21-22-21-22 30 9z"/></svg>
+  <div class="hero-inner">
+    <div class="eyebrow">Relatório de Performance · Agosto 2026</div>
+    <h1>Porto Kaeté:<br>onde está o dinheiro <em>não</em> é onde está o gasto</h1>
+    <p class="sub">Diagnóstico do funil de compra do site, de onde a receita realmente vem, os pontos de vazamento e o plano de ação para setembro — tudo medido direto no GA4.</p>
+    <div class="metaline">
+      <span>Fonte: <b>GA4 · propriedade 539483498</b> (fuso America/Maceió)</span>
+      <span>Base: <b>site portokaeté.com.br</b></span>
+      <span>Comparativo: <b>agosto vs julho</b></span>
+      <span>Trilha Performance Digital</span>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <!-- 01 PANORAMA -->
+  <section id="panorama">
+    <div class="sec-head"><span class="sec-no">01</span><h2>Agosto em números</h2></div>
+    <p class="sec-lead">O mês cresceu <b>26% em receita</b> — mas puxado por ticket maior, não por mais vendas. Mesmo volume de julho, reservas mais altas.</p>
+    <div class="kpis">
+      <div class="kpi"><div class="k-label">Receita (GA4 · site)</div><div class="k-val num">R$ 200.506</div><div class="k-foot"><span class="delta up">▲ 26,1%</span> vs jul · R$ 159.036</div></div>
+      <div class="kpi"><div class="k-label">Vendas confirmadas</div><div class="k-val num">148</div><div class="k-foot"><span class="delta flat">≈ −1,3%</span> vs jul · 150</div></div>
+      <div class="kpi"><div class="k-label">Ticket médio</div><div class="k-val num">R$ 1.355</div><div class="k-foot"><span class="delta up">▲ 27,8%</span> vs jul · R$ 1.060</div></div>
+      <div class="kpi"><div class="k-label">Sessões no site</div><div class="k-val num">20.563</div><div class="k-foot"><span class="delta up">▲ 38,5%</span> vs jul · 14.851</div></div>
+      <div class="kpi"><div class="k-label">Conversão sessão→compra</div><div class="k-val num">0,72%</div><div class="k-foot"><span class="delta down">▼ 29%</span> vs jul · 1,01%</div></div>
+      <div class="kpi"><div class="k-label">ROAS (receita site ÷ mídia paga)</div><div class="k-val num">12,1×</div><div class="k-foot">Investimento pago: R$ 16.527</div></div>
+    </div>
+    <p class="note">Este relatório trata da <b>receita medida no site (GA4)</b>. Reservas fechadas por WhatsApp/telefone existem e entram como geração de demanda, mas <b>não são somadas</b> à receita do site — canais têm modelos de atribuição diferentes e somá-los infla o resultado. Unificar essas vendas num funil único é um dos itens do plano.</p>
+  </section>
+
+  <!-- 02 FUNNEL -->
+  <section id="funil">
+    <div class="sec-head"><span class="sec-no">02</span><h2>O funil completo, do clique à reserva</h2></div>
+    <p class="sec-lead">Cada estação mostra quantas pessoas avançaram e a perda em relação à etapa anterior. As duas maiores quedas <b>não estão em atrair tráfego</b> — estão em converter quem já demonstrou interesse.</p>
+
+    <div class="stations">
+      <div class="station"><div class="s-val num">20.563</div><div class="s-lab">Sessões no site</div><div class="s-sub">Meta + Google + orgânico + direto</div><span class="drop">−94,3%</span></div>
+      <div class="station"><div class="s-val num">1.182</div><div class="s-lab">Adicionou ao carrinho</div><div class="s-sub">5,7% das sessões iniciam uma reserva</div><span class="drop">−21,6%</span></div>
+      <div class="station"><div class="s-val num">926</div><div class="s-lab">Iniciou o checkout</div><div class="s-sub">&nbsp;</div><span class="drop">−70,1%</span></div>
+      <div class="station"><div class="s-val num">277</div><div class="s-lab">Dados de pagamento</div><div class="s-sub">o degrau que mais derruba</div><span class="drop">−46,6%</span></div>
+      <div class="station"><div class="s-val num">148</div><div class="s-lab">Compra finalizada</div><div class="s-sub">R$ 200.506 em receita</div></div>
+    </div>
+
+    <div class="callout" style="margin-top:26px">
+      <b>Leitura estratégica:</b> de cada 100 pessoas que <b>iniciam o checkout</b>, só ~16 finalizam. Atrair mais tráfego frio não resolve — o gargalo é estrutural, dentro do processo de reserva.
+    </div>
+  </section>
+
+  <!-- 03 GARGALO -->
+  <section id="gargalo">
+    <div class="sec-head"><span class="sec-no">03</span><h2>O gargalo crítico: o checkout</h2></div>
+    <p class="sec-lead">Ampliando só a parte acionável do funil (carrinho → compra), o vazamento aparece com clareza — e é <b>idêntico ao de julho</b>, ou seja, estrutural.</p>
+    <div class="cols">
+      <div>
+        <div class="barlist">
+          <div class="bar-row"><div class="bar-name">Adicionou ao carrinho</div><div class="bar-track"><div class="bar-fill sea" style="width:100%">1.182</div></div></div>
+          <div class="bar-row"><div class="bar-name">Iniciou checkout <small>−22%</small></div><div class="bar-track"><div class="bar-fill sea" style="width:78%">926</div></div></div>
+          <div class="bar-row"><div class="bar-name">Dados de pagamento <small>−70% · vazamento</small></div><div class="bar-track"><div class="bar-fill acc" style="width:23.4%">277</div></div></div>
+          <div class="bar-row"><div class="bar-name">Compra <small>fecha 53% de quem paga</small></div><div class="bar-track"><div class="bar-fill ink" style="width:12.5%">148</div></div></div>
+        </div>
+        <p class="tiny" style="margin-top:14px">Taxas de agosto — carrinho→checkout <b>78%</b> · checkout→pagamento <b>30%</b> · pagamento→compra <b>53%</b>. Em julho: 76% · 35% · 50%. O padrão se repete.</p>
+      </div>
+      <div class="panel">
+        <h3>Onde atuar</h3>
+        <p class="lead-sm">926 pessoas iniciaram o checkout e 778 não compraram (84%). O ponto de maior perda é <b>checkout → dados de pagamento</b>.</p>
+        <ul style="margin:0; padding-left:18px; color:var(--ink-2); font-size:14.5px; line-height:1.7">
+          <li><b>Auditar o motor de reserva</b> — mapear onde o usuário sai entre iniciar o checkout e preencher o pagamento.</li>
+          <li><b>Reduzir etapas</b> — unificar contato e pagamento numa tela só.</li>
+          <li><b>Remarketing de carrinho</b> — cobrir todos que adicionaram ao carrinho, não só quem chegou ao checkout.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 CANAIS -->
+  <section id="canais">
+    <div class="sec-head"><span class="sec-no">04</span><h2>De onde a receita realmente vem</h2></div>
+    <p class="sec-lead">Este é o ponto que o fechamento anterior não mostrava. Por atribuição de último clique no GA4, a receita se distribui assim — e revela dois fatos que mudam a estratégia.</p>
+
+    <div class="barlist" style="margin-bottom:24px">
+      <div class="bar-row"><div class="bar-name">Site direto <small>portokaeté.com.br · 30 vendas</small></div><div class="bar-track"><div class="bar-fill sea" style="width:100%">R$ 45.124</div></div></div>
+      <div class="bar-row"><div class="bar-name">Tráfego direto <small>20 vendas</small></div><div class="bar-track"><div class="bar-fill sea" style="width:71.8%">R$ 32.382</div></div></div>
+      <div class="bar-row"><div class="bar-name">Trivago <small>25 vendas · 9× julho</small></div><div class="bar-track"><div class="bar-fill acc" style="width:71%">R$ 32.023</div></div></div>
+      <div class="bar-row"><div class="bar-name">Google orgânico <small>31 vendas</small></div><div class="bar-track"><div class="bar-fill sea" style="width:69.7%">R$ 31.470</div></div></div>
+      <div class="bar-row"><div class="bar-name">Linktree <small>10 vendas</small></div><div class="bar-track"><div class="bar-fill ink" style="width:46.4%">R$ 20.920</div></div></div>
+      <div class="bar-row"><div class="bar-name">Google Ads <small>12 vendas · pago</small></div><div class="bar-track"><div class="bar-fill acc" style="width:24.3%">R$ 10.977</div></div></div>
+      <div class="bar-row"><div class="bar-name">Instagram <small>4 vendas</small></div><div class="bar-track"><div class="bar-fill ink" style="width:18.4%">R$ 8.286</div></div></div>
+      <div class="bar-row"><div class="bar-name">Meta Ads <small>2 vendas · pago</small></div><div class="bar-track"><div class="bar-fill ink" style="width:7.7%">R$ 3.465</div></div></div>
+    </div>
+
+    <div class="cols">
+      <div class="callout"><b>1. Trivago virou o 2º maior canal de receita.</b> R$ 32 mil em 25 vendas — <b>9× o resultado de julho</b> (R$ 3,5 mil / 5 vendas). É o canal incremental que mais cresceu, e hoje ninguém o gerencia ativamente.</div>
+      <div class="callout"><b>2. A Meta paga fecha 2 vendas no último clique</b> — apesar de levar <b>73% do orçamento</b>. Isso não a condena: ela é topo de funil e alimenta o "direto" e os recorrentes. Mas mostra que <b>o resultado e o gasto não estão no mesmo lugar</b>, e que precisamos medir a Meta por assistência, não por último clique.</div>
+    </div>
+    <p class="note">Atribuição de último clique (GA4). Os números de conversão declarados dentro do Meta Ads e do Google Ads seguem modelos próprios e maiores; por isso não são somados aqui nem entre si. O papel da Meta aparece melhor em métricas de assistência e incrementalidade — próximo passo de medição.</p>
+  </section>
+
+  <!-- 05 NOVOS x RECORRENTES -->
+  <section id="recorrentes">
+    <div class="sec-head"><span class="sec-no">05</span><h2>Quem já conhece o Porto Kaeté converte 4,4× mais</h2></div>
+    <div class="cols">
+      <div class="panel" style="padding:0; overflow:hidden">
+        <table>
+          <thead><tr><th>&nbsp;</th><th>Sessões</th><th>Vendas</th><th>Receita</th><th>Conv.</th></tr></thead>
+          <tbody>
+            <tr><td>Novos visitantes</td><td class="num">15.270</td><td class="num">72</td><td class="num">R$ 99.036</td><td class="num">0,47%</td></tr>
+            <tr class="row-hl"><td><b>Recorrentes</b></td><td class="num">3.691</td><td class="num">76</td><td class="num">R$ 101.471</td><td class="num">2,06%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <p class="sec-lead" style="margin-top:0">Só <b>18% das sessões</b> vêm de visitantes recorrentes — mas eles geram <b>mais receita que os 82% de novos</b>. Em julho eram 42% das compras; em agosto já são 51%.</p>
+        <div class="callout">O hóspede pesquisa, sai e volta para fechar. <b>Remarketing e relacionamento valem mais que aquisição fria</b> — é onde o dinheiro rende mais.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 COMPORTAMENTO -->
+  <section id="comportamento">
+    <div class="sec-head"><span class="sec-no">06</span><h2>Como e quando o hóspede decide</h2></div>
+    <p class="sec-lead">Leituras de comportamento que orientam quando e como investir.</p>
+    <div class="beh">
+      <div class="card"><div class="b-k">Dia da semana</div><div class="b-v">Domingo virou o dia mais forte</div><div class="b-d">29 vendas no domingo, 21 no sábado. Em julho, o meio de semana dominava — a decisão migrou para o fim de semana.</div></div>
+      <div class="card"><div class="b-k">Horário</div><div class="b-v">Picos às 13h e 19h</div><div class="b-d">A compra concentra no almoço (12h–14h) e à noite (19h–22h). Madrugada é irrelevante (2 vendas entre 0h–6h).</div></div>
+      <div class="card"><div class="b-k">Dispositivo</div><div class="b-v">Mobile fecha, desktop gasta mais</div><div class="b-d">61% das compras vêm do celular (90 vendas), mas o desktop tem ticket maior: R$ 1.458 vs R$ 1.288.</div></div>
+      <div class="card"><div class="b-k">Ticket</div><div class="b-v">Puxado por uma cauda de reservas grandes</div><div class="b-d">Mediana R$ 968 vs média R$ 1.355. 8 reservas acima de R$ 4.500 — a maior, R$ 11.605 em 04/08.</div></div>
+    </div>
+  </section>
+
+  <!-- 07 HIPOTESES -->
+  <section id="hipoteses">
+    <div class="sec-head"><span class="sec-no">07</span><h2>Hipóteses de trabalho</h2></div>
+    <p class="sec-lead">O que os dados sugerem — e o que vamos testar para confirmar.</p>
+    <div class="hyps">
+      <div class="hyp"><div class="h-n"></div><div><h3>O gargalo do checkout é técnico, não de intenção</h3><p>A perda checkout→pagamento (−70%) é idêntica à de julho. Isso aponta para fricção no motor de reserva (etapas demais, dados pedidos cedo). <span class="tag">Testar: reduzir etapas</span></p></div></div>
+      <div class="hyp"><div class="h-n"></div><div><h3>A Meta gera demanda que fecha por outro canal</h3><p>2 vendas no último clique, mas 5.159 sessões diretas e recorrentes em alta sugerem que a Meta planta a intenção e a colheita aparece em "direto"/"Trivago". <span class="tag">Testar: medir por assistência</span></p></div></div>
+      <div class="hyp"><div class="h-n"></div><div><h3>Trivago e SEO estão subinvestidos</h3><p>Dois dos maiores canais de receita — Trivago (R$ 32k) e Google orgânico (R$ 31k) — são de baixo custo e crescem sozinhos. Há upside em geri-los ativamente. <span class="tag">Testar: gestão de meta-search</span></p></div></div>
+      <div class="hyp"><div class="h-n"></div><div><h3>A queda de conversão foi de tráfego, não estrutural</h3><p>Dois picos de tráfego frio (12/08 e 26/08) quase não converteram e derrubaram a taxa média. O funil de quem tem intenção seguiu saudável. <span class="tag">Testar: qualidade do topo pago</span></p></div></div>
+    </div>
+  </section>
+
+  <!-- 08 PLANO -->
+  <section id="plano">
+    <div class="sec-head"><span class="sec-no">08</span><h2>Plano de ação — próximas semanas</h2></div>
+    <div class="plan">
+      <table>
+        <thead><tr><th>Prioridade</th><th>Ação</th><th>Prazo</th><th>Objetivo</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pri u">Urgente</span></td><td><b>Auditar o checkout</b> do motor de reserva: mapear a saída entre checkout e pagamento e reduzir etapas.</td><td>2 semanas</td><td class="obj">Subir pagamento→compra acima de 53% e destravar o maior vazamento.</td></tr>
+          <tr><td><span class="pri u">Urgente</span></td><td><b>Remarketing de carrinho abandonado</b> cobrindo todos que adicionaram ao carrinho.</td><td>1 semana</td><td class="obj">Recuperar parte dos 87,5% que não finalizam.</td></tr>
+          <tr><td><span class="pri a">Alta</span></td><td><b>Reavaliar o mix da Meta</b> por assistência/incrementalidade e realocar teste para fundo e recorrentes.</td><td>Contínuo</td><td class="obj">Alinhar 73% do orçamento ao resultado real.</td></tr>
+          <tr><td><span class="pri a">Alta</span></td><td><b>Estruturar Trivago / meta-search</b> como canal gerido, não passivo.</td><td>2 semanas</td><td class="obj">Escalar o 2º maior canal de receita.</td></tr>
+          <tr><td><span class="pri a">Alta</span></td><td><b>Campanha para recorrentes</b> e base de quem já interagiu.</td><td>2 semanas</td><td class="obj">Explorar o público que converte 4,4× mais.</td></tr>
+          <tr><td><span class="pri m">Média</span></td><td><b>Concentrar mídia</b> nos dias e horários de pico (fim de semana, 13h e 19h).</td><td>Contínuo</td><td class="obj">Investir na janela de maior intenção.</td></tr>
+          <tr><td><span class="pri m">Média</span></td><td><b>Integrar vendas de WhatsApp/telefone</b> ao painel para um funil único.</td><td>Estrutural</td><td class="obj">Enxergar 100% da receita num só lugar.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 09 METAS -->
+  <section id="metas" style="border-bottom:none">
+    <div class="sec-head"><span class="sec-no">09</span><h2>Metas propostas para setembro</h2></div>
+    <p class="sec-lead">Base: receita medida no site (GA4). A confirmar com vocês: ocupação e sazonalidade, margem por ticket e volume de reservas por WhatsApp/telefone.</p>
+    <div class="goals">
+      <div class="goal"><div class="g-name">Receita (GA4 · site)</div><div class="g-now num">R$ 200.506</div><div class="g-arrow">→</div><div class="g-target num">R$ 250.000</div></div>
+      <div class="goal"><div class="g-name">Vendas no site</div><div class="g-now num">148</div><div class="g-arrow">→</div><div class="g-target num">170–185</div></div>
+      <div class="goal"><div class="g-name">Conversão carrinho→compra</div><div class="g-now num">12,5%</div><div class="g-arrow">→</div><div class="g-target num">≥ 15%</div></div>
+      <div class="goal"><div class="g-name">Ticket médio</div><div class="g-now num">R$ 1.355</div><div class="g-arrow">→</div><div class="g-target num">manter</div></div>
+      <div class="goal"><div class="g-name">ROAS (site ÷ mídia paga)</div><div class="g-now num">12,1×</div><div class="g-arrow">→</div><div class="g-target num">≥ 10×</div></div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b>Porto Kaeté</b> · Diagnóstico de Funil · Agosto 2026</div>
+    <div style="font-size:13px">Trilha Performance Digital · dados GA4 verificados em 02/09/2026</div>
+  </div>
+</footer>
+
+</body>
+</html>
