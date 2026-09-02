@@ -203,9 +203,33 @@
   .jnote{margin-top:14px; background:rgba(238,77,32,.07); border:1px solid rgba(238,77,32,.25); border-radius:10px; padding:14px 16px; font-size:13.5px}
   .jnote b{font-weight:800}
 
+  /* tooltip explicativo ao passar o mouse */
+  .hint{position:relative; border-bottom:1px dotted currentColor; cursor:help}
+  .hint > .tip{position:absolute; left:0; top:calc(100% + 9px); z-index:40; width:250px; background:var(--dark); color:#fff; padding:11px 13px; border-radius:10px; font-size:12px; font-weight:500; line-height:1.5; letter-spacing:0; text-transform:none; box-shadow:0 10px 28px rgba(0,0,0,.22); opacity:0; transform:translateY(-4px); pointer-events:none; transition:opacity .15s,transform .15s}
+  .hint:hover > .tip, .hint:focus-visible > .tip{opacity:1; transform:none}
+  .hint > .tip::before{content:""; position:absolute; bottom:100%; left:18px; border:6px solid transparent; border-bottom-color:var(--dark)}
+
+  /* cor por tema — menos quadro branco */
+  .kicker::before{content:""; width:13px; height:13px; border-radius:4px; background:var(--accent); flex:none}
+  .grid4 .card{border-top:3px solid var(--accent)}
+  .grid4 .card:nth-child(2){border-top-color:var(--blue)} .grid4 .card:nth-child(2) .bk{color:var(--blue)}
+  .grid4 .card:nth-child(3){border-top-color:var(--purple)} .grid4 .card:nth-child(3) .bk{color:var(--purple)}
+  .grid4 .card:nth-child(4){border-top-color:var(--up)} .grid4 .card:nth-child(4) .bk{color:var(--up)}
+  .opgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(258px,1fr)); gap:12px}
+  .opgrid .card{border-top:3px solid var(--accent)}
+  .opgrid .card:nth-child(1){border-top-color:var(--blue)} .opgrid .card:nth-child(1) .bk{color:var(--blue)}
+  .opgrid .card:nth-child(3){border-top-color:var(--purple)} .opgrid .card:nth-child(3) .bk{color:var(--purple)}
+  .opgrid .card:nth-child(4){border-top-color:var(--up)} .opgrid .card:nth-child(4) .bk{color:var(--up)}
+  .opgrid .card:nth-child(5){border-top-color:#c77a0f} .opgrid .card:nth-child(5) .bk{color:#c77a0f}
+  ol.hyp li{border-left:3px solid var(--accent)}
+  ol.hyp li:nth-child(2){border-left-color:var(--blue)} ol.hyp li:nth-child(2)::before{color:var(--blue)}
+  ol.hyp li:nth-child(3){border-left-color:var(--purple)} ol.hyp li:nth-child(3)::before{color:var(--purple)}
+  ol.hyp li:nth-child(4){border-left-color:var(--up)} ol.hyp li:nth-child(4)::before{color:var(--up)}
+  .perfilcard{border-top:3px solid var(--accent)}
+
   @media print{
     .tile,.card,.callout,ol.hyp li,tr,.goal,.jornada{break-inside:avoid}
-    .kicker,.tile.ink,.tile.accent,.pri,.jornada svg{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+    .kicker,.tile.ink,.tile.accent,.pri,.jornada svg,.grid4 .card,.opgrid .card,ol.hyp li{-webkit-print-color-adjust:exact; print-color-adjust:exact}
   }
 </style>
 </head>
@@ -336,8 +360,8 @@
   <section id="s4">
     <p class="kicker">Canais · De onde vem a receita</p>
     <div class="card" style="margin-bottom:14px">
-      <div class="cbar-row"><div class="cbar-name">Site direto<small>portokaeté.com.br · 30 vendas</small></div><div class="cbar-track"><div class="cbar-fill" style="width:100%"></div></div><div class="cval num">R$ 45.124</div></div>
-      <div class="cbar-row"><div class="cbar-name">Tráfego direto<small>20 vendas</small></div><div class="cbar-track"><div class="cbar-fill" style="width:71.8%"></div></div><div class="cval num">R$ 32.382</div></div>
+      <div class="cbar-row"><div class="cbar-name"><span class="hint" tabindex="0">Site direto<span class="tip">Veio do próprio site do hotel (portokaeté.com.br) e seguiu para o motor de reservas. O GA4 registra como auto-referência do domínio.</span></span><small>portokaeté.com.br · 30 vendas</small></div><div class="cbar-track"><div class="cbar-fill" style="width:100%"></div></div><div class="cval num">R$ 45.124</div></div>
+      <div class="cbar-row"><div class="cbar-name"><span class="hint" tabindex="0">Tráfego direto<span class="tip">Sessão sem origem identificável: digitou o endereço, usou os favoritos ou veio de um link sem rastreio (WhatsApp, apps, e-mail).</span></span><small>20 vendas</small></div><div class="cbar-track"><div class="cbar-fill" style="width:71.8%"></div></div><div class="cval num">R$ 32.382</div></div>
       <div class="cbar-row hot"><div class="cbar-name">Trivago<small>25 vendas · 9× julho</small></div><div class="cbar-track"><div class="cbar-fill" style="width:71%"></div></div><div class="cval num">R$ 32.023</div></div>
       <div class="cbar-row"><div class="cbar-name">Google orgânico<small>31 vendas</small></div><div class="cbar-track"><div class="cbar-fill" style="width:69.7%"></div></div><div class="cval num">R$ 31.470</div></div>
       <div class="cbar-row"><div class="cbar-name">Linktree<small>10 vendas</small></div><div class="cbar-track"><div class="cbar-fill" style="width:46.4%"></div></div><div class="cval num">R$ 20.920</div></div>
@@ -377,6 +401,51 @@
       <div class="card bcard"><div class="bk">Horário</div><div class="bv">Picos às 13h e 19h</div><div class="bd">Concentra no almoço e à noite. Madrugada é irrelevante, 2 vendas entre 0h e 6h.</div></div>
       <div class="card bcard"><div class="bk">Dispositivo</div><div class="bv">Mobile fecha, desktop gasta mais</div><div class="bd">61% das compras no celular (90), mas desktop tem ticket maior: R$ 1.458 vs R$ 1.288.</div></div>
       <div class="card bcard"><div class="bk">Ticket</div><div class="bv">Cauda de reservas grandes</div><div class="bd">Mediana R$ 968 vs média R$ 1.355. 8 reservas acima de R$ 4.500, a maior, R$ 11.605.</div></div>
+    </div>
+  </section>
+
+  <!-- PERFIL DE QUEM COMPROU -->
+  <section id="sperfil">
+    <p class="kicker">Perfil de quem comprou · Agosto</p>
+    <div class="grid2">
+      <div class="card" style="border-top:3px solid var(--blue)">
+        <h3 style="font-size:15px; font-weight:800; margin-bottom:14px">De onde vêm as reservas</h3>
+        <div class="cbar-row hot"><div class="cbar-name">São Paulo<small>39 vendas</small></div><div class="cbar-track"><div class="cbar-fill" style="width:100%"></div></div><div class="cval num">R$ 67.310</div></div>
+        <div class="cbar-row"><div class="cbar-name">Bahia<small>10 vendas</small></div><div class="cbar-track"><div class="cbar-fill" style="width:24.9%"></div></div><div class="cval num">R$ 16.749</div></div>
+        <div class="cbar-row"><div class="cbar-name">Pernambuco<small>11 vendas</small></div><div class="cbar-track"><div class="cbar-fill" style="width:24.2%"></div></div><div class="cval num">R$ 16.313</div></div>
+        <div class="cbar-row"><div class="cbar-name">Minas Gerais<small>14 vendas</small></div><div class="cbar-track"><div class="cbar-fill" style="width:22.7%"></div></div><div class="cval num">R$ 15.256</div></div>
+        <div class="cbar-row"><div class="cbar-name">Goiás<small>6 vendas</small></div><div class="cbar-track"><div class="cbar-fill" style="width:19%"></div></div><div class="cval num">R$ 12.814</div></div>
+        <div class="cbar-row"><div class="cbar-name">Rio de Janeiro<small>7 vendas</small></div><div class="cbar-track"><div class="cbar-fill" style="width:15.2%"></div></div><div class="cval num">R$ 10.205</div></div>
+        <div class="cbar-row"><div class="cbar-name">Rio Grande do Sul<small>6 vendas</small></div><div class="cbar-track"><div class="cbar-fill" style="width:13%"></div></div><div class="cval num">R$ 8.744</div></div>
+        <p style="font-size:12px; color:var(--muted); margin:12px 0 0">+ Distrito Federal (R$ 7,2 mil) e demanda internacional de <b style="color:var(--text)">Ituzaingó, Argentina</b> (R$ 5,2 mil).</p>
+      </div>
+      <div class="card" style="border-top:3px solid var(--accent)">
+        <h3 style="font-size:15px; font-weight:800; margin-bottom:14px">Qual unidade compram</h3>
+        <div class="cbar-row hot"><div class="cbar-name">Premium Duplo Casal · King<small>472 diárias · 66% do mix</small></div><div class="cbar-track"><div class="cbar-fill" style="width:100%"></div></div><div class="cval num">R$ 252.668</div></div>
+        <div class="cbar-row"><div class="cbar-name">Premium Duplo Twin<small>193 diárias · 26%</small></div><div class="cbar-track"><div class="cbar-fill" style="width:38.8%"></div></div><div class="cval num">R$ 98.100</div></div>
+        <div class="cbar-row"><div class="cbar-name">Premium Triplo<small>40 diárias · 6%</small></div><div class="cbar-track"><div class="cbar-fill" style="width:9.5%"></div></div><div class="cval num">R$ 23.980</div></div>
+        <div class="cbar-row"><div class="cbar-name">Pareja Doble · Argentina<small>7 diárias · 2%</small></div><div class="cbar-track"><div class="cbar-fill" style="width:3%"></div></div><div class="cval num">R$ 7.587</div></div>
+        <p style="font-size:12px; color:var(--muted); margin:12px 0 0">Receita por diárias vendidas (conta por noite, então a soma passa da receita de transações). Serve como mix de produto, não como total.</p>
+      </div>
+    </div>
+    <p style="font-size:12px; color:var(--muted); margin:14px 0 0"><b style="color:var(--text)">Perfil demográfico:</b> só ~31% dos compradores são identificados (consentimento). Dos conhecidos, a faixa <b style="color:var(--text)">35-44</b> lidera e o público feminino aparece à frente do masculino, leitura direcional.</p>
+  </section>
+
+  <!-- OPORTUNIDADES -->
+  <section id="sop">
+    <p class="kicker">Oportunidades · Onde há upside de marketing</p>
+    <div class="opgrid">
+      <div class="card bcard"><div class="bk">Geografia</div><div class="bv">Concentrar a mídia em São Paulo</div><div class="bd">SP é 1/3 da receita (R$ 67 mil, 39 vendas). Priorizar SP na segmentação de Meta e Google, e testar BA, PE e MG, os estados que mais compram na sequência.</div></div>
+      <div class="card bcard"><div class="bk">Mídia · Verba</div><div class="bv">Realinhar verba e medir a Meta por assistência</div>
+        <div class="bd">73% da verba está na Meta, que fecha 2 vendas no último clique. O Google, com 27%, fecha 12. A Meta atua no topo, então medir por assistência antes de cortar, e realocar teste pro que converte.</div>
+        <div style="display:flex; height:8px; border-radius:99px; overflow:hidden; margin-top:12px"><span style="width:73%; background:var(--muted)"></span><span style="width:27%; background:var(--accent)"></span></div>
+        <div style="font-size:10.5px; color:var(--muted); margin-top:4px">Verba, Meta 73% · Google 27%</div>
+        <div style="display:flex; height:8px; border-radius:99px; overflow:hidden; margin-top:8px"><span style="width:14%; background:var(--muted)"></span><span style="width:86%; background:var(--accent)"></span></div>
+        <div style="font-size:10.5px; color:var(--muted); margin-top:4px">Vendas diretas GA4, Meta 14% · Google 86%</div>
+      </div>
+      <div class="card bcard"><div class="bk">Internacional</div><div class="bv">Estruturar a demanda argentina</div><div class="bd">Há compra vinda de Ituzaingó e um tipo de unidade em espanhol (Pareja Doble). O plano previa uma campanha Argentina, vale ativar com criativo em espanhol e checar se ela captura essa demanda.</div></div>
+      <div class="card bcard"><div class="bk">Criativo · Oferta</div><div class="bv">Destacar o Apto King, e o Twin</div><div class="bd">O Premium Casal (King) é 66% da receita de diárias e o Twin cresce (26%, público de grupos e amigos). Criativo e oferta devem liderar por essas duas unidades.</div></div>
+      <div class="card bcard"><div class="bk">Canal</div><div class="bv">Gerir o meta-search como mídia</div><div class="bd">Trivago virou o 2º maior canal e leva o usuário direto pra disponibilidade com datas, por isso converte. Tratar como canal gerido (lances, cobertura), não passivo.</div></div>
     </div>
   </section>
 
