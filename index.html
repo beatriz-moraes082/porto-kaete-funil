@@ -213,6 +213,8 @@
   .jnote b{font-weight:800}
   .jcap{margin-top:14px; font-size:12.5px; color:var(--muted); text-align:center; line-height:1.55; max-width:520px; margin-left:auto; margin-right:auto}
   .jornada svg g[data-drop]{cursor:help}
+  .ftip{position:fixed; z-index:200; max-width:260px; background:var(--dark); color:#fff; padding:11px 13px; border-radius:10px; font-size:12px; font-weight:500; line-height:1.5; box-shadow:0 10px 28px rgba(0,0,0,.28); pointer-events:none; opacity:0; transform:translateY(-4px); transition:opacity .12s, transform .12s}
+  .ftip.show{opacity:1; transform:none}
   .jcmp{display:grid; grid-template-columns:1fr 46px 46px 52px; gap:7px; align-items:baseline; padding:9px 0; border-bottom:1px solid var(--border); font-size:13px}
   .jcmp:last-of-type{border-bottom:none}
   .jcmp .jc-l{color:var(--muted); font-weight:600}
@@ -622,6 +624,30 @@
   });
   lb.addEventListener('click',function(){ lb.classList.remove('open'); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') lb.classList.remove('open'); });
+})();
+</script>
+<script>
+(function(){
+  var tip=document.createElement('div'); tip.className='ftip'; document.body.appendChild(tip);
+  function show(g){
+    var t=g.querySelector('title'); if(!t) return;
+    tip.textContent=t.textContent;
+    tip.classList.add('show');
+    var r=g.getBoundingClientRect(), tr=tip.getBoundingClientRect();
+    var left=Math.max(8, Math.min(r.left+r.width/2-tr.width/2, window.innerWidth-tr.width-8));
+    var top=r.top-tr.height-10; if(top<8) top=r.bottom+10;
+    tip.style.left=left+'px'; tip.style.top=top+'px';
+  }
+  function hide(){ tip.classList.remove('show'); }
+  document.querySelectorAll('g[data-drop]').forEach(function(g){
+    g.addEventListener('mouseenter',function(){show(g);});
+    g.addEventListener('mouseleave',hide);
+    g.addEventListener('focus',function(){show(g);});
+    g.addEventListener('blur',hide);
+    g.addEventListener('click',function(e){e.stopPropagation(); tip.classList.contains('show')?hide():show(g);});
+  });
+  document.addEventListener('click',hide);
+  window.addEventListener('scroll',hide,true);
 })();
 </script>
 </body>
