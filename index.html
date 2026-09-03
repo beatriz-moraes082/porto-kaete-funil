@@ -66,6 +66,12 @@
   main{padding:0 0 40px}
   section{border-top:1px solid var(--border); margin-top:42px; padding-top:34px}
   .kicker{font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin:0 0 26px; display:flex; align-items:center; gap:9px}
+  .hilite{background:var(--accent); color:#fff; border-radius:var(--r-lg); padding:28px 32px; box-shadow:var(--sh)}
+  .hilite .hl-eyebrow{font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; opacity:.85; margin-bottom:12px}
+  .hilite .hl-title{font-size:27px; font-weight:800; line-height:1.22; letter-spacing:-.01em}
+  .hilite .hl-title b{font-weight:800; background:rgba(255,255,255,.22); padding:0 8px; border-radius:8px}
+  .hilite .hl-sub{font-size:14.5px; margin-top:12px; color:#fff; font-weight:600}
+  @media(max-width:640px){.hilite{padding:22px 22px} .hilite .hl-title{font-size:21px}}
 
   /* hero */
   .hero{display:grid; grid-template-columns:1.35fr .9fr; gap:20px; align-items:stretch; margin:6px 0 30px}
@@ -205,6 +211,8 @@
   .jstep.leak .js-v{color:var(--down)}
   .jnote{margin-top:14px; background:rgba(238,77,32,.07); border:1px solid rgba(238,77,32,.25); border-radius:10px; padding:14px 16px; font-size:13.5px}
   .jnote b{font-weight:800}
+  .jcap{margin-top:14px; font-size:12.5px; color:var(--muted); text-align:center; line-height:1.55; max-width:520px; margin-left:auto; margin-right:auto}
+  .jornada svg g[data-drop]{cursor:help}
 
   /* tooltip explicativo ao passar o mouse */
   .hint{position:relative; border-bottom:1px dotted currentColor; cursor:help}
@@ -249,7 +257,7 @@
 
 <header class="cover"><div class="wrap">
   <p class="cv-eyebrow">Relatório de Performance · Porto Kaeté · Agosto 2026</p>
-  <p class="cv-lead">Diagnóstico do funil de compra do site: de onde a receita realmente vem, onde ela vaza e o que vamos atacar. <mark class="mk">Agosto cresceu 26% em receita</mark>, mas o resultado e o orçamento não estão no mesmo lugar.</p>
+  <p class="cv-lead">Diagnóstico do funil de compra do site: de onde a receita realmente vem, onde ela vaza e o que vamos atacar.</p>
   <div class="cv-facts">
     <span><b>Fonte:</b> GA4 · propriedade 539483498</span>
     <span><b>Base:</b> site portokaeté.com.br</span>
@@ -260,19 +268,47 @@
 
 <main class="wrap">
 
-  <!-- 01 VOLUMETRIA -->
-  <section id="s1">
-    <p class="kicker">Volumetria · Operação</p>
+  <!-- 00 DESTAQUE -->
+  <section id="s0">
+    <div class="hilite">
+      <div class="hl-eyebrow">Destaque do mês</div>
+      <div class="hl-title">Agosto mais que dobrou a receita: <b>+105%</b> no resultado total (site + central)</div>
+      <div class="hl-sub">Agosto vs julho · R$ 345.265 vs R$ 168.358</div>
+    </div>
+  </section>
+
+  <!-- 01 RESULTADO COMPLETO -->
+  <section id="s1b">
+    <p class="kicker">Resultado completo · Emissões (site + central)</p>
+    <p style="color:var(--muted); font-size:14px; margin:-6px 0 14px; max-width:64ch">O resultado de emissões soma a venda no site (GA4) à venda direta pela central/WhatsApp, que roda fora do GA4 e é lançada manualmente. É esse total que bate com a meta do ano.</p>
     <div class="kpis">
-      <div class="tile ink">
-        <div class="tl">Receita · GA4 site <span class="dpill up">▲ 26,1%</span></div>
-        <div class="tv num">R$ 200.506</div>
-        <div class="tf">vs jul · R$ 159.036</div>
-        <svg class="spark" viewBox="0 0 300 44" preserveAspectRatio="none" aria-hidden="true">
-          <polygon points="3.0,44 3.0,40.1 12.8,13.0 22.6,11.4 32.4,3.0 42.2,41.0 52.0,27.6 61.8,34.3 71.6,34.5 81.4,14.5 91.2,32.1 101.0,23.2 110.8,21.9 120.6,28.0 130.4,35.5 140.2,34.2 150.0,34.3 159.8,25.9 169.6,32.5 179.4,21.1 189.2,34.6 199.0,41.0 208.8,24.8 218.6,31.9 228.4,33.7 238.2,23.2 248.0,33.5 257.8,28.2 267.6,30.4 277.4,33.0 287.2,40.2 297.0,33.8 297.0,44" fill="rgba(238,77,32,.25)"/>
-          <polyline points="3.0,40.1 12.8,13.0 22.6,11.4 32.4,3.0 42.2,41.0 52.0,27.6 61.8,34.3 71.6,34.5 81.4,14.5 91.2,32.1 101.0,23.2 110.8,21.9 120.6,28.0 130.4,35.5 140.2,34.2 150.0,34.3 159.8,25.9 169.6,32.5 179.4,21.1 189.2,34.6 199.0,41.0 208.8,24.8 218.6,31.9 228.4,33.7 238.2,23.2 248.0,33.5 257.8,28.2 267.6,30.4 277.4,33.0 287.2,40.2 297.0,33.8" fill="none" stroke="#EE4D20" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
-        </svg>
+      <div class="tile">
+        <div class="tl">Site · GA4</div>
+        <div class="tv num">R$ 200.509</div>
+        <div class="tf">reservas no site · vs jul R$ 158.633</div>
       </div>
+      <div class="tile">
+        <div class="tl">Central · WhatsApp</div>
+        <div class="tv num">R$ 144.756</div>
+        <div class="tf">vs jul R$ 9.726 · 2 dias sem preenchimento, é piso</div>
+      </div>
+      <div class="tile ink">
+        <div class="tl">Receita total · emissões <span class="dpill up">▲ 105%</span></div>
+        <div class="tv num">R$ 345.265</div>
+        <div class="tf">site + central · vs jul R$ 168.358</div>
+      </div>
+      <div class="tile accent">
+        <div class="tl">Resultado × Meta 2026 <span class="dpill up">▲ 9,23%</span></div>
+        <div class="tv num">+9,23%</div>
+        <div class="tf">meta R$ 316.089 · batida com 2 dias ainda em aberto</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 VOLUMETRIA DO SITE -->
+  <section id="s1">
+    <p class="kicker">Volumetria do site · Operação</p>
+    <div class="kpis">
       <div class="tile accent">
         <div class="tl">Sessões no site <span class="dpill up">▲ 38,5%</span></div>
         <div class="tv num">20.563</div>
@@ -309,6 +345,7 @@
   <section id="s2">
     <p class="kicker">A jornada · Funil de compra</p>
     <div class="jornada">
+      <div class="jcol">
       <svg viewBox="0 0 560 392" role="img" aria-label="Funil de compra: 20.563 sessões, 1.182 carrinho, 926 checkout, 277 pagamento, 148 compra">
         <!-- bandas do funil -->
         <polygon points="30,24 530,24 478,92 82,92" fill="#F7CDB0"/>
@@ -328,11 +365,13 @@
         <text x="280" y="343" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">148</text>
         <text x="280" y="360" text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="rgba(255,255,255,.9)">COMPRA</text>
         <!-- quedas entre etapas -->
-        <g><rect x="245" y="83" width="70" height="22" rx="11" fill="#fff" stroke="#ECECEC"/><text x="280" y="98" text-anchor="middle" font-size="11.5" font-weight="800" fill="#dc2626">−94,3%</text></g>
-        <g><rect x="245" y="155" width="70" height="22" rx="11" fill="#fff" stroke="#ECECEC"/><text x="280" y="170" text-anchor="middle" font-size="11.5" font-weight="800" fill="#dc2626">−21,6%</text></g>
-        <g><rect x="245" y="227" width="70" height="22" rx="11" fill="#fff" stroke="#ECECEC"/><text x="280" y="242" text-anchor="middle" font-size="11.5" font-weight="800" fill="#dc2626">−70,1%</text></g>
-        <g><rect x="245" y="299" width="70" height="22" rx="11" fill="#fff" stroke="#ECECEC"/><text x="280" y="314" text-anchor="middle" font-size="11.5" font-weight="800" fill="#dc2626">−46,6%</text></g>
+        <g data-drop tabindex="0"><title>Sessão → carrinho: de cada 100 visitas ao site, ~94 saem antes de adicionar um quarto ao carrinho. Só 5,7% avançam, esperado no topo, boa parte só está pesquisando.</title><rect x="245" y="83" width="70" height="22" rx="11" fill="#fff" stroke="#ECECEC"/><text x="280" y="98" text-anchor="middle" font-size="11.5" font-weight="800" fill="#dc2626">−94,3%</text></g>
+        <g data-drop tabindex="0"><title>Carrinho → checkout: 21,6% dos que montaram o carrinho desistem antes de iniciar a reserva. 78% seguem em frente.</title><rect x="245" y="155" width="70" height="22" rx="11" fill="#fff" stroke="#ECECEC"/><text x="280" y="170" text-anchor="middle" font-size="11.5" font-weight="800" fill="#dc2626">−21,6%</text></g>
+        <g data-drop tabindex="0"><title>Checkout → pagamento: maior vazamento do funil. 70% dos que iniciam o checkout abandonam antes de chegar à tela de pagamento, é o gargalo do motor de reserva.</title><rect x="245" y="227" width="70" height="22" rx="11" fill="#fff" stroke="#ECECEC"/><text x="280" y="242" text-anchor="middle" font-size="11.5" font-weight="800" fill="#dc2626">−70,1%</text></g>
+        <g data-drop tabindex="0"><title>Pagamento → compra: 46,6% dos que chegam ao pagamento não confirmam a reserva. Quase metade trava na última etapa.</title><rect x="245" y="299" width="70" height="22" rx="11" fill="#fff" stroke="#ECECEC"/><text x="280" y="314" text-anchor="middle" font-size="11.5" font-weight="800" fill="#dc2626">−46,6%</text></g>
       </svg>
+      <p class="jcap">Os números em <b style="color:#dc2626">vermelho</b> dentro do funil são a <b>queda</b> de uma etapa para a próxima, quanto do público sai no caminho. A lista ao lado mostra o inverso: a <b>taxa que avança</b> para a etapa seguinte (as duas somam 100% em cada passagem). Passe o mouse em cada queda para o detalhe.</p>
+      </div>
       <div class="jside">
         <div class="jstep"><span class="js-l">Sessão → carrinho</span><span class="js-v">5,7%</span></div>
         <div class="jstep"><span class="js-l">Carrinho → checkout</span><span class="js-v">78%</span></div>
@@ -404,7 +443,7 @@
     </div>
     <div class="grid2">
       <div class="callout hot"><b>1. Trivago virou o 2º maior canal.</b> R$ 32 mil em 25 vendas, 9× julho (R$ 3,5 mil / 5). O canal incremental que mais cresceu, e hoje ninguém gerencia.</div>
-      <div class="callout"><b>2. A Meta paga fecha 2 vendas no último clique</b>, com 73% do orçamento. Ela é topo e alimenta o "direto" e os recorrentes: gasto e resultado não estão no mesmo lugar. Medir por assistência, não por último clique.</div>
+      <div class="callout"><b>2. A Meta paga fecha 2 vendas no último clique</b>, com 73% do orçamento. Ela é topo e alimenta o "direto" e os recorrentes. Medir por assistência, não por último clique.</div>
     </div>
     <p style="font-size:12px; color:var(--muted); margin:12px 0 0">Atribuição de último clique (GA4). As conversões declaradas dentro do Meta Ads e do Google Ads seguem modelos próprios e maiores; por isso não são somadas aqui nem entre si.</p>
   </section>
